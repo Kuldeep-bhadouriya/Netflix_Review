@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Papa from 'papaparse'
 import { motion } from 'framer-motion'
 import { Activity, Calendar, Clock3, PlayCircle, Search, Sparkles } from 'lucide-react'
@@ -45,6 +45,13 @@ function App() {
   const [searchData, setSearchData] = useState<SearchEntry[]>([])
   const [status, setStatus] = useState<StatusState>({ viewing: 'Waiting', search: 'Optional' })
   const [isLoading, setIsLoading] = useState(false)
+  const [introDismissed, setIntroDismissed] = useState(false)
+  const [revealStarted, setRevealStarted] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
+  const [videoError, setVideoError] = useState<string | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const revealTimerRef = useRef<number | null>(null)
+  const retryTimerRef = useRef<number | null>(null)
 
   const watchSummary = useMemo(() => summarizeWatching(viewingData), [viewingData])
   const trend = useMemo(() => buildTrend(viewingData), [viewingData])
@@ -69,6 +76,74 @@ function App() {
       .map(([day, minutes]) => ({ day, minutes }))
       .sort((a, b) => b.minutes - a.minutes)
   }, [viewingData])
+
+  const startReveal = useCallback(() => {
+    setRevealStarted((prev) => {
+      if (prev) {
+        return prev
+      }
+      revealTimerRef.current = window.setTimeout(() => {
+        setIntroDismissed(true)
+      }, 900)
+      return true
+    })
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (revealTimerRef.current) {
+        window.clearTimeout(revealTimerRef.current)
+      }
+    }
+    const retryTimerId = retryTimerRef.current
+    if (retryTimerId !== null) {
+      window.clearTimeout(retryTimerId as number)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (introDismissed) {
+      document.body.classList.remove('intro-active')
+    } else {
+      document.body.classList.add('intro-active')
+    }
+    return () => {
+      document.body.classList.remove('intro-active')
+    }
+  }, [introDismissed])
+
+  const attemptVideoPlayback = useCallback(() => {
+    const video = videoRef.current
+    if (!video) {
+      return
+    }
+    video.muted = true
+    const playAttempt = video.play()
+    if (playAttempt && typeof playAttempt.then === 'function') {
+      playAttempt
+        .then(() => {
+          setVideoError(null)
+          window.setTimeout(() => {
+            if (videoRef.current) {
+              videoRef.current.muted = false
+            }
+          }, 250)
+        })
+        .catch(() => {
+          setVideoError('Trying to start intro…')
+          retryTimerRef.current = window.setTimeout(() => {
+            attemptVideoPlayback()
+          }, 800)
+        })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (introDismissed || !videoReady) {
+      return
+    }
+    attemptVideoPlayback()
+  }, [attemptVideoPlayback, introDismissed, videoReady])
 
   const updateStatus = (partial: Partial<StatusState>) => setStatus((prev) => ({ ...prev, ...partial }))
 
@@ -152,8 +227,42 @@ function App() {
     }
   }
 
+  const handleVideoEnd = () => {
+    startReveal()
+  }
+
   return (
-    <div className="app-bg min-h-screen px-4 py-10 text-white sm:px-8">
+    <>
+      {!introDismissed && (
+        <div
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-[900ms] ${revealStarted ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+        >
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            src="/Loading_screen.mp4"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            onLoadedData={() => setVideoReady(true)}
+            onEnded={handleVideoEnd}
+            onError={() => {
+              setVideoError('Intro video failed to load.')
+              startReveal()
+            }}
+            controls={false}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+          <div className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-2 px-6 text-center">
+            {!videoReady && <p className="text-xs uppercase tracking-[0.4em] text-white/70">Initializing intro…</p>}
+            {videoError && <p className="text-xs text-brand">{videoError}</p>}
+          </div>
+        </div>
+      )}
+      <div
+        className={`app-bg min-h-screen px-4 py-10 text-white transition-all duration-700 ease-out sm:px-8 ${revealStarted ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-4'}`}
+      >
       <div className="mx-auto w-full max-w-6xl space-y-10">
         <motion.header
           className="relative overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-br from-brandDark/90 via-brandDarker/85 to-black/80 p-8 sm:p-10 shadow-panel"
@@ -334,6 +443,7 @@ function App() {
         </footer>
       </div>
     </div>
+    </>
   )
 }
 
