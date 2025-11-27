@@ -156,44 +156,44 @@ function App() {
     <div className="app-bg min-h-screen px-4 py-10 text-white sm:px-8">
       <div className="mx-auto w-full max-w-6xl space-y-10">
         <motion.header
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#05030a]/95 via-[#0c0720]/90 to-[#05030a]/95 p-8 shadow-glow"
+          className="relative overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-br from-brandDark/90 via-brandDarker/85 to-black/80 p-8 sm:p-10 shadow-panel"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="space-y-5">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-slate-300">
-              <Sparkles size={14} /> Netflix insight engine
+          <div className="space-y-6">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1 text-[0.65rem] uppercase tracking-[0.35em] text-brandMuted">
+              <Sparkles size={14} /> Netflix viewing profile
             </p>
-            <div>
+            <div className="space-y-4">
               <h1 className="font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
-                Netflix Review - turn raw files into vivid stories
+                See your Netflix habits through a cinematic lens.
               </h1>
-              <p className="mt-4 max-w-2xl text-base text-slate-300">
-                Upload your downloaded Netflix data and instantly uncover what you watch, when you binge, which genres you crave,
-                and how your search habits guide every session. Animated charts keep the experience fresh and human.
+              <p className="max-w-2xl text-base text-brandMuted">
+                Upload the official Netflix exports and watch your hours, devices, and searches reshape into the same bold aesthetic you
+                know on TV. Everything renders locally -- no accounts, no tracking, just your viewing story.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <button
-                className="rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/20 transition hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition hover:bg-brandAccent"
                 onClick={loadSampleData}
               >
-                Try the included sample dataset
+                Preview with sample profile
               </button>
               <a
-                className="rounded-2xl border border-white/15 px-5 py-3 text-sm text-slate-200"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
                 href="https://www.netflix.com/account/getmyinfo"
                 target="_blank"
                 rel="noreferrer"
               >
-                Need help exporting data?
+                How to download your data
               </a>
             </div>
           </div>
         </motion.header>
 
         <motion.section
-          className="glass-panel grid gap-5 rounded-3xl border border-white/10 bg-white/5 p-6 sm:grid-cols-2 xl:grid-cols-4"
+          className="grid gap-5 rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel sm:grid-cols-2 xl:grid-cols-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -217,28 +217,28 @@ function App() {
           loading={isLoading}
         />
 
-        {status.error && <p className="text-sm text-rose-300">{status.error}</p>}
+        {status.error && <p className="text-sm text-brand">{status.error}</p>}
 
         <section className="grid gap-6 md:grid-cols-[1.3fr_0.7fr]">
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Watch history" subtitle="Total hours and cadence per month" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Monthly watch time" subtitle="Hours streamed each month" />
             <WatchTrend data={trend} />
           </div>
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Most watched" subtitle="Top stories on repeat" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Most watched on Netflix" subtitle="Titles that keep playing" />
             <TopTitles items={topTitles} />
           </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Genre energy" subtitle="Where your attention gravitates" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Genres you return to" subtitle="Share of time spent per genre" />
             <GenreChart data={genreStats} />
           </div>
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Device mix" subtitle="Screens you stream on" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Where you press play" subtitle="Screens ranked by time" />
             <DeviceChart data={deviceStats} />
-            <div className="mt-4 space-y-2 text-sm text-slate-300">
+            <div className="mt-4 space-y-2 text-sm text-brandMuted">
               {deviceStats.length ? (
                 deviceStats.map((device) => (
                   <div key={device.device} className="flex items-center justify-between">
@@ -247,46 +247,46 @@ function App() {
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-slate-400">Devices appear once viewing data is ready.</p>
+                <p className="text-sm text-brandMuted">Devices appear once viewing data is ready.</p>
               )}
             </div>
           </div>
         </section>
 
-        <section className="glass-panel rounded-3xl border border-white/10 p-6">
-          <SectionHeader title="Binge heatmap" subtitle="Weekday versus weekend rhythm" />
+        <section className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+          <SectionHeader title="Weekly rhythm" subtitle="Day and time windows with the most play" />
           <Heatmap data={heatmapData} />
         </section>
 
-        <section className="glass-panel rounded-3xl border border-white/10 p-6">
-          <SectionHeader title="Viewing distribution" subtitle="Histogram inspired readouts with smoothed trendline" />
+        <section className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+          <SectionHeader title="Watch cadence breakdown" subtitle="Histogram readouts with smoothed trendline" />
           <div className="grid gap-6">
             <ViewingDistributionChart
               title="Daily cadence"
               xLabel="Day of month"
-              color="#f87171"
-              lineColor="#dc2626"
+              color="#E50914"
+              lineColor="#F67C7C"
               data={dayDistribution}
             />
             <ViewingDistributionChart
               title="Hourly pulse"
               xLabel="Hour of day"
-              color="#60a5fa"
-              lineColor="#1d4ed8"
+              color="#B20710"
+              lineColor="#FF9E9E"
               data={hourDistribution}
             />
           </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-2">
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Day pacing" subtitle="Which days steal the watch crown" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Day-of-week leaders" subtitle="A quick glance at the most active days" />
             {dayTotals.length ? (
               <div className="grid gap-3">
                 {dayTotals.map((item) => (
-                  <div key={item.day} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  <div key={item.day} className="flex items-center justify-between rounded-2xl border border-white/5 bg-panel/60 px-4 py-3">
                     <div className="flex items-center gap-3 text-sm">
-                      <Clock3 size={16} className="text-neon" />
+                      <Clock3 size={16} className="text-brand" />
                       <span>{item.day}</span>
                     </div>
                     <span className="text-sm font-semibold text-white">{formatHours(item.minutes)}</span>
@@ -294,18 +294,18 @@ function App() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-slate-400">Upload viewing data to surface day-level pacing.</p>
+              <p className="text-sm text-brandMuted">Upload viewing data to surface day-level pacing.</p>
             )}
           </div>
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Personalized insights" subtitle="Generated from your unique habits" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Personalized takeaways" subtitle="Generated from your unique habits" />
             <InsightList items={insights} />
           </div>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Search pulse" subtitle="Queries per month" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Search intensity" subtitle="Queries per month" />
             <SearchTrend data={searchStats.monthlyCounts} />
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <MetricCard label="Total searches" value={`${searchStats.totalQueries}`} sublabel="Across Netflix" icon={<Search size={16} />} />
@@ -323,14 +323,14 @@ function App() {
               />
             </div>
           </div>
-          <div className="glass-panel rounded-3xl border border-white/10 p-6">
-            <SectionHeader title="Search word cloud" subtitle="Your most common discovery terms" />
+          <div className="rounded-[28px] border border-white/5 bg-panel/80 p-6 shadow-panel">
+            <SectionHeader title="Most used keywords" subtitle="Pulled from your SearchHistory.csv" />
             <WordCloud tokens={searchStats.wordCloud} />
           </div>
         </section>
 
-        <footer className="text-center text-xs text-slate-500">
-          Netflix Review • Built with React, Vite, Tailwind, Recharts, and a sprinkle of Framer Motion.
+        <footer className="text-center text-xs text-brandMuted">
+          Netflix Review • Built with React, Vite, Tailwind, Recharts, and Framer Motion.
         </footer>
       </div>
     </div>

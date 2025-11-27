@@ -1,0 +1,7 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="96" fill="#0B0B0B"/>
+  <rect x="32" y="32" width="448" height="448" rx="80" fill="#1A1A1A"/>
+  <text x="50%" y="58%" text-anchor="middle" fill="#F5F5F1" font-family="'Work Sans', 'Inter', sans-serif" font-size="220" font-weight="700" letter-spacing="-10">
+    NR
+  </text>
+</svg>

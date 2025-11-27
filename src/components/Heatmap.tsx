@@ -19,7 +19,7 @@ const bucketLabel = (start: number) => {
 
 export const Heatmap = ({ data }: HeatmapProps) => {
   if (!data.length) {
-    return <p className="text-sm text-slate-400">Upload viewing data to unlock your binge heatmap.</p>
+    return <p className="text-sm text-brandMuted">Upload viewing data to unlock your binge heatmap.</p>
   }
 
   const matrix = new Map<string, number>()
@@ -36,9 +36,9 @@ export const Heatmap = ({ data }: HeatmapProps) => {
       <table className="w-full border-separate border-spacing-1">
         <thead>
           <tr>
-            <th className="w-24 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">Day</th>
+            <th className="w-24 text-left text-xs font-semibold uppercase tracking-wide text-brandMuted">Day</th>
             {BUCKETS.map((bucket) => (
-              <th key={bucket} className="min-w-[90px] text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <th key={bucket} className="min-w-[90px] text-xs font-semibold uppercase tracking-wide text-brandMuted">
                 {bucketLabel(bucket)}
               </th>
             ))}
@@ -51,9 +51,11 @@ export const Heatmap = ({ data }: HeatmapProps) => {
               {BUCKETS.map((bucket) => {
                 const value = matrix.get(`${day}-${bucket}`) || 0
                 const intensity = value / maxValue
-                const background = `linear-gradient(135deg, rgba(127,90,240,${0.15 + intensity * 0.6}), rgba(34,211,238,${0.15 + intensity * 0.4}))`
+                const alpha = 0.12 + intensity * 0.65
+                const backgroundColor = `rgba(229,9,20,${alpha})`
+                const color = intensity > 0.5 ? '#ffffff' : '#f5f5f5'
                 return (
-                  <td key={bucket} className="rounded-lg px-2 py-3 text-center text-xs font-semibold text-white/90" style={{ background }}>
+                  <td key={bucket} className="rounded-lg px-2 py-3 text-center text-xs font-semibold" style={{ backgroundColor, color }}>
                     {value ? `${Math.round(value / 6)} min` : '--'}
                   </td>
                 )

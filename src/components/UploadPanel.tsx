@@ -11,10 +11,10 @@ interface UploadPanelProps {
 }
 
 const FileInput = ({ label, hint, accept, onChange }: { label: string; hint: string; accept: string; onChange: (file: File) => void }) => (
-  <label className="flex w-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-neon/40 hover:bg-white/10">
-    <span className="text-sm font-semibold uppercase tracking-wide text-slate-300">{label}</span>
-    <div className="flex flex-col gap-2 text-slate-400">
-      <span className="text-base font-medium text-white">Drop file or click to upload</span>
+  <label className="flex w-full flex-col gap-3 rounded-2xl border border-white/10 bg-panel/60 p-5 transition hover:border-white/40">
+    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-brandMuted">{label}</span>
+    <div className="flex flex-col gap-2 text-brandMuted">
+      <span className="text-base font-medium text-white">Drag files here or browse</span>
       <span className="text-xs">{hint}</span>
     </div>
     <input
@@ -39,46 +39,46 @@ export const UploadPanel = ({
   loading,
 }: UploadPanelProps) => (
   <motion.section
-    className="glass-panel rounded-3xl border border-white/10 p-6 text-white shadow-glow"
+    className="rounded-[28px] border border-white/5 bg-panel/80 p-6 text-white shadow-panel"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
   >
     <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
       <div className="flex-1 min-w-0 space-y-4">
-        <p className="text-sm text-slate-300">Upload your Netflix exports to unlock personalized insights.</p>
+        <p className="text-sm text-brandMuted">Upload the CSVs Netflix emails to you and keep everything processed locally.</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <FileInput
             label="ViewingActivity.csv"
-            hint="Required - powers watch, genre, device, and time analytics"
+            hint="Required - fuels watch time, devices, and cadence"
             accept=".csv"
             onChange={onViewingUpload}
           />
           <FileInput
             label="SearchHistory.csv"
-            hint="Optional - enables search trends and word cloud"
+            hint="Optional - powers search trends and word cloud"
             accept=".csv"
             onChange={onSearchUpload}
           />
         </div>
-        <div className="flex flex-wrap gap-3 text-xs text-slate-400">
+        <div className="flex flex-wrap gap-3 text-xs text-brandMuted">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">
             <Upload size={14} /> CSV only
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1">
-            Auto cleaning enabled
+            Local processing only
           </span>
         </div>
       </div>
       <div className="w-full min-w-0 space-y-3 sm:max-w-sm">
         <button
-          className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-aurora to-flare px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:translate-y-0.5"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-brandAccent"
           onClick={onLoadSamples}
         >
           <Download size={16} />
-          Load sample data
+          Preview with sample profile
         </button>
-        <div className="rounded-2xl border border-white/10 bg-black/30 p-4 text-xs text-slate-300">
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-xs text-brandMuted">
           <p className="font-semibold text-white">Status</p>
           <ul className="mt-2 space-y-1">
             <li className="flex items-center justify-between">

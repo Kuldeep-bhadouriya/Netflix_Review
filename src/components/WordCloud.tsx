@@ -6,11 +6,11 @@ interface WordCloudProps {
 }
 
 const rotations = [-6, -3, 0, 3, 6]
-const palette = ['text-neon', 'text-flare', 'text-white', 'text-slate-200']
+const palette = ['text-brand', 'text-white', 'text-brandMuted', 'text-slate-200']
 
 export const WordCloud = ({ tokens }: WordCloudProps) => {
   if (!tokens.length) {
-    return <p className="text-sm text-slate-400">Upload SearchHistory.csv to visualize your search universe.</p>
+    return <p className="text-sm text-brandMuted">Upload SearchHistory.csv to visualize your search universe.</p>
   }
 
   const max = Math.max(...tokens.map((token) => token.count))

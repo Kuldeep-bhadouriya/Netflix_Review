@@ -1,6 +1,6 @@
 # Netflix Review Dashboard
 
-Netflix Review is a Vite + React experience that turns your downloaded Netflix data (ViewingActivity.csv and optional SearchHistory.csv) into a cinematic, insight-driven dashboard. Upload your files to reveal binge rhythms, genre cravings, device habits, search intent, and personalized insights paired with vibrant charts and subtle motion.
+Netflix Review is a Vite + React experience that turns your downloaded Netflix data (ViewingActivity.csv and optional SearchHistory.csv) into a cinematic, insight-driven dashboard. Upload your files to reveal binge rhythms, genre cravings, device habits, search intent, and personalized insights now rendered in a Netflix-inspired dark theme.
 
 ## Features
 
@@ -11,12 +11,13 @@ Netflix Review is a Vite + React experience that turns your downloaded Netflix d
 - **Device insights** - donut chart plus detail list showing time spent per device and most-used screen.
 - **Search behavior** - monthly search line chart, key metrics, and a dynamic word cloud (requires SearchHistory.csv).
 - **Personalized insights** - auto-generated cards (weekend bingeing, genre crushes, device preference, session pace, search habits).
-- **Modern UI** - Tailwind-styled glassmorphism, custom gradient mesh background, and framer-motion for subtle transitions.
+- **Modern UI** - Tailwind-styled Netflix-grade surfaces, Work Sans typography (Graphik-inspired), and Framer Motion flourishes.
+- **Brand-aligned palette** - Custom red/ink token set, NR favicon, and copy updates that echo Netflix while avoiding trademarked assets.
 
 ## Tech Stack
 
 - React 19 (TypeScript) + Vite (Rolldown)
-- Tailwind CSS 3.4 + custom theming
+- Tailwind CSS 3.4 + custom Netflix theming
 - Recharts for data visualizations
 - Framer Motion for animated entrances
 - PapaParse + date-fns for CSV parsing and date transforms
@@ -63,5 +64,6 @@ src/
 - Genre detection relies on curated keyword matching because Netflix’s export does not include explicit genres.
 - The Search section stays empty until SearchHistory.csv is provided; other sections work with ViewingActivity.csv alone.
 - All UI copy and insights are generated locally - no external APIs are called.
+- The refreshed visual system mirrors Netflix’s palette using Work Sans as a Graphik-style alternative and a custom NR favicon, so no trademarked assets are bundled.
 
 Enjoy exploring your Netflix story!

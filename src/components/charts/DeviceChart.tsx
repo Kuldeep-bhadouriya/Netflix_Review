@@ -5,11 +5,11 @@ interface DeviceChartProps {
   data: DeviceStat[]
 }
 
-const COLORS = ['#22d3ee', '#7f5af0', '#f472b6', '#facc15', '#38bdf8']
+const COLORS = ['#E50914', '#B20710', '#F5F5F1', '#737373', '#2D2D2D']
 
 export const DeviceChart = ({ data }: DeviceChartProps) => {
   if (!data.length) {
-    return <p className="text-sm text-slate-400">Device breakdown will appear after data upload.</p>
+    return <p className="text-sm text-brandMuted">Device breakdown will appear after data upload.</p>
   }
 
   const chartData = data.map((item) => ({ device: item.device, minutes: item.minutes }))
@@ -23,7 +23,7 @@ export const DeviceChart = ({ data }: DeviceChartProps) => {
           ))}
         </Pie>
         <Tooltip
-          contentStyle={{ background: '#05030a', border: '1px solid rgba(148,163,184,0.2)', borderRadius: '1rem' }}
+          contentStyle={{ background: '#0b0b0b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '1rem' }}
           formatter={(value: number, name: string) => [`${Math.round((value as number) / 60)} hrs`, name]}
         />
       </PieChart>

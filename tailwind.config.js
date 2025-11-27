@@ -4,21 +4,25 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        body: ['"Inter"', 'sans-serif'],
+        display: ['"Work Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        body: ['"Work Sans"', '"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        ink: '#05030a',
-        aurora: '#7f5af0',
-        neon: '#22d3ee',
-        flare: '#f472b6',
-        dusk: '#1f2937',
+        brand: '#E50914',
+        brandAccent: '#F6121D',
+        brandDark: '#141414',
+        brandDarker: '#0B0B0B',
+        brandMuted: '#8C8C8C',
+        panel: '#1F1F1F',
+        panelMuted: '#232323',
       },
       boxShadow: {
-        glow: '0 25px 70px rgba(127, 90, 240, 0.25)',
+        glow: '0 35px 90px rgba(0, 0, 0, 0.65)',
+        panel: '0 30px 50px rgba(0, 0, 0, 0.55)',
       },
       backgroundImage: {
-        mesh: 'radial-gradient(circle at 20% 20%, rgba(127,90,240,0.35), transparent 50%), radial-gradient(circle at 80% 0%, rgba(244,114,182,0.35), transparent 45%), radial-gradient(circle at 50% 80%, rgba(34,211,238,0.25), transparent 45%)',
+        mesh:
+          'radial-gradient(circle at 15% 15%, rgba(245,245,241,0.08), transparent 40%), radial-gradient(circle at 75% 5%, rgba(229,9,20,0.22), transparent 45%), radial-gradient(circle at 70% 70%, rgba(217,48,37,0.18), transparent 55%)',
       },
     },
   },
